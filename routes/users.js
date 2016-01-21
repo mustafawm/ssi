@@ -11,12 +11,12 @@ router.use('/', function(req, res, next) {
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	// req.user added by passport
+	// req.user added by passport (check google strategy)
   	res.render('users', 
   		{ 
   			user: {
 			  	name: req.user.displayName,
-	  			image: req.user._json.image.url 
+	  			image: req.user.image 
 	  		}
 	  	}
 	); 
