@@ -27,7 +27,18 @@ router.route('/twitter/callback')
 		failure: '/error/'
 	}));
 
-
+// FACEBOOK landing page
+router.route('/facebook')
+	.get(passport.authenticate('facebook', {
+		scope: ['email']
+	}));
+	 
+// response from provider 
+router.route('/facebook/callback')
+	.get(passport.authenticate('facebook', {
+		successRedirect: '/users/',
+		failure: '/error/'
+	}));
 
 module.exports = router;
 
