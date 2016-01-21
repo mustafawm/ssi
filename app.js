@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 /*----------------------------------------
 | Routes
 |----------------------------------------*/
@@ -21,8 +22,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 /*----------------------------------------
 | Middlewares
 |----------------------------------------*/
@@ -32,13 +34,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./src/config/middlewares')(app);
+// extra middlewares
+// require('./config/middlewares')(app);
 
-require('./src/config/passport')();
+// passport
+require('./config/passport')(app);
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/auth', auth)
+app.use('/auth', auth);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
