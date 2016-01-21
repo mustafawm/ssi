@@ -1,16 +1,14 @@
-<!DOCTYPE HTML>
-<html>
+<% include layouts/header %>
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="">
-		<title>Social Aggregator</title>
-	</head>
+<div class="container">
+	<h2><%= title %></h2>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<a href="/auth/google" class="googleplus">
+				<i class="fa fa-google-plus"></i>
+			</a>
+		</li>
+	</ul>
+</div>
 
-	<body>
-		<div class="container">
-			<h2><%= title %></h2>
-		</div>
-
-	</body>
-</html>
+<% include layouts/footer %>
