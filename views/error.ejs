@@ -1,5 +1,14 @@
 <% include layouts/header %>
 
+<div class="container">
+	
+	<h1><%= message %></h1>
+	<h2><%= error.status %></h2>
+	
+	<div>
+		<%= error.stack %>
+	</div>
 
+</div>
 
 <% include layouts/footer %>

@@ -20,4 +20,5 @@ module.exports = function(app) {
 
 	// 3. strategy
 	require('./strategies/google')(passport);
+	require('./strategies/twitter')(passport);
 };
