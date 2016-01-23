@@ -1,4 +1,6 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
+var User = require('../../models/userModel');
+
 
 module.exports = function(passport) {
 	passport.use(new FacebookStrategy({
@@ -9,17 +11,28 @@ module.exports = function(passport) {
 		profileFields: ['id', 'emails', 'displayName', ]
 	}, 
 	function(req, accessToken, refreshToken, profile, done) {
-		var user = {
-			email: profile.emails[0].value,
-			// image: profile._json.profile_image_url,
-			displayName: profile.displayName,
+		var query = {'facebook.id': profile.id};
 
-			facebook: {
-				id: profile.id,
-				token: accessToken
+		User.findOne(query, function(err, user) {
+			if (user) {
+				console.log("user found -- fb");
+				done(null, user);
+			} else {
+				console.log("user not found -- fb");
+				var user = new User({
+					email: profile.emails[0].value,
+					// image: profile._json.profile_image_url,
+					displayName: profile.displayName,
+					facebook: 
+					{
+						id: profile.id,
+						token: accessToken,
+						refreshToken: refreshToken
+					}
+				}); // end user
+				user.save();
+				done(null, user);
 			}
-		};
-		// add user to the account
-		done(null, user);
+		}); // end findOne
 	}));
 };

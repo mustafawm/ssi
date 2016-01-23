@@ -4,7 +4,7 @@ var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
-
+var mongoose     = require('mongoose');
 
 /*----------------------------------------
 | Routes
@@ -15,9 +15,13 @@ var auth   = require('./routes/auth');
 
 
 var app = express();
+var db = mongoose.connect('mongodb://127.0.0.1/socialAgg');
+
+require('./models/userModel')(mongoose);
+
 
 /*----------------------------------------
-| view engine setup
+| View engine setup
 |----------------------------------------*/
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
