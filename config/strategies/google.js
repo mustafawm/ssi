@@ -3,16 +3,16 @@ var User = require('../../models/userModel');
 
 
 module.exports = function(passport) {
-	// A: confirm with google 
+	// A: confirm with google
 	passport.use(new GoogleStrategy({
-		clientID: '601535605845-07qii3u9k8ldafv850ohsipnnd6ttnc2.apps.googleusercontent.com',
-		clientSecret:'CPTMzi_fDX_1djHFVDOgx9WN',
+		clientID: process.env.G_CLIENT_ID,
+		clientSecret:process.env.G_CLIENT_SECRET,
 		callbackURL: 'http://127.0.0.1:3000/auth/google/callback'
 
 	}, // B: get response from google
 	function (req, accessToken, refreshToken, profile, done) {
 		var query = { 'google.id': profile.id };
-		
+
 		User.findOne( query, function(err, user) {
 			if (user) {
 				console.log("user found");
@@ -24,7 +24,7 @@ module.exports = function(passport) {
 					email: profile.emails[0].value,
 					image: profile._json.image.url,
 					displayName: profile.displayName,
-					google: 
+					google:
 					{
 						id: profile.id,
 						token: accessToken,

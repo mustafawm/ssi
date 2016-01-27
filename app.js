@@ -1,3 +1,5 @@
+require('dotenv').config(); // .env file
+
 var express      = require('express');
 var path         = require('path');
 var favicon      = require('serve-favicon');
@@ -15,7 +17,7 @@ var auth   = require('./routes/auth');
 
 
 var app = express();
-var db = mongoose.connect('mongodb://127.0.0.1/socialAgg');
+var db = mongoose.connect('mongodb://127.0.0.1/'+process.env.DB_HOST);
 
 require('./models/userModel')(mongoose);
 
